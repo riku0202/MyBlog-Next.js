@@ -5,7 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { GetStaticPaths, GetStaticProps } from "next";
 
-const BlogId = ({ blog }: Content) => {
+const BlogId = ({ blog }: any) => {
   return (
     <Layout>
       {/*<div className="cards">*/}
