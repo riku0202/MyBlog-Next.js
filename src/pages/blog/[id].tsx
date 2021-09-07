@@ -1,59 +1,72 @@
 import { client } from "../../lib/MicroCms";
-import { NextPage } from "next";
+import { Content, ContentList } from "../../types/content";
+import { Layout } from "../../components/Layout";
+import React from "react";
+import Image from "next/image";
+import { GetStaticPaths, GetStaticProps } from "next";
 
-type BlogResponseType = {
-  contents: Contents;
-  totalCount: number;
-  offset: number;
-  limit: number;
+const BlogId = ({ blog }: Content) => {
+  return (
+    <Layout>
+      {/*<div className="cards">*/}
+      {/*  <CardComponent*/}
+      {/*    image={blog.image.url}*/}
+      {/*    title={blog.title}*/}
+      {/*    content={blog.body}*/}
+      {/*    link={`/blog/${blog.id}`}*/}
+      {/*  />*/}
+      {/*</div>*/}
+      <div>
+        <Image
+          alt="mainImage"
+          src={blog.image.url}
+          layout="responsive"
+          width="1000"
+          height={500}
+          quality={100}
+        />
+      </div>
+    </Layout>
+  );
 };
+export default BlogId;
 
-type Contents = {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  title: string;
-  body: JSX.Element;
-  image: { url: string; height: number; width: number };
-}[];
-
-type Props = {
-  content: Contents;
-};
-//
-// export const Post: NextPage<Contents> = ({blog}:Co) => {
-//   console.log(blog);
-//   return (
-//     <div>
-//       <ul>
-//         {blog.map((blog) => (
-//           <>
-//             <div>{blog.id}</div>
-//             <div>{blog.title}</div>
-//             <div>{blog.contents}</div>
-//           </>
-//           ))}
-//         <li key={blog.id}>
-//           <p>{blog.title}</p>
-//         </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default Post;
-
-export const getStaticProps = async () => {
-  const data = await client.get<BlogResponseType>({
+export const getStaticPaths: GetStaticPaths = async () => {
+  const data = await client.get<ContentList>({
     endpoint: "blog",
   });
 
+  const paths = data.contents.map((blog) => `/blog/${blog.id}`);
+  return { paths, fallback: false };
+};
+
+type props = {
+  params: {
+    id: number;
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (params !== undefined) {
+    const res = await fetch(
+      `https://riku-s.microcms.io/api/v1/blog/${params.id}`,
+      {
+        headers: {
+          "X-API-KEY": "9cba3744-936b-447c-b555-79bb51b00914",
+        },
+      }
+    );
+    const data = await res.json();
+    return {
+      props: {
+        blog: data,
+      },
+    };
+  }
+
   return {
     props: {
-      blog: data.contents,
+      blog: "",
     },
   };
 };

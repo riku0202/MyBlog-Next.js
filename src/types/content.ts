@@ -1,11 +1,11 @@
-export type BlogList = {
-  contents: Blog[];
+export type ContentList = {
+  contents: Content[];
   totalCount: number;
   offset: number;
   limit: number;
 };
 
-export type Blog = {
+export type Content = {
   id: string;
   createdAt: string;
   updatedAt: string;
