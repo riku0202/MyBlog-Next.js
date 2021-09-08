@@ -12,7 +12,7 @@ type Props = {
 
 const sections = [
   { title: "Blog", url: "/" },
-  { title: "Portfolio", url: "/portfolio" },
+  { title: "About me", url: "/portfolio" },
 ];
 
 export const Layout = ({ preview, children }: Props) => {
@@ -114,7 +114,7 @@ const Style = styled.div`
     }
 
     .category {
-      margin: 5px 0 0;
+      margin: 7px 0 0;
       display: flex;
       justify-content: center;
 

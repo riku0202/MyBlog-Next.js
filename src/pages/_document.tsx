@@ -1,12 +1,4 @@
-import Document, {
-  DocumentContext,
-  Head,
-  Html,
-  Main,
-  NextScript,
-} from "next/document";
-import { ServerStyleSheet as StyledComponentSheets } from "styled-components";
-import { ServerStyleSheets as MaterialUiServerStyleSheets } from "@material-ui/styles";
+import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
 
 class CustomDocument extends Document {
@@ -14,6 +6,7 @@ class CustomDocument extends Document {
     return (
       <Html lang="ja">
         <Head>
+          <title>aaa</title>
           <link
             href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
             rel="stylesheet"
@@ -35,33 +28,3 @@ class CustomDocument extends Document {
 }
 
 export default CustomDocument;
-
-CustomDocument.getInitialProps = async (ctx: DocumentContext) => {
-  const styledComponentSheets = new StyledComponentSheets();
-  const materialUiServerStyleSheets = new MaterialUiServerStyleSheets();
-  const originalRenderPage = ctx.renderPage;
-
-  try {
-    ctx.renderPage = () =>
-      originalRenderPage({
-        enhanceApp: (App) => (props) =>
-          styledComponentSheets.collectStyles(
-            materialUiServerStyleSheets.collect(<App {...props} />)
-          ),
-      });
-
-    const initialProps = await Document.getInitialProps(ctx);
-    return {
-      ...initialProps,
-      styles: (
-        <>
-          {initialProps.styles}
-          {styledComponentSheets.getStyleElement()}
-          {materialUiServerStyleSheets.getStyleElement()}
-        </>
-      ),
-    };
-  } finally {
-    styledComponentSheets.seal();
-  }
-};
