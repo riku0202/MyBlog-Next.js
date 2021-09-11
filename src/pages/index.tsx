@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import CardComponent from "../components/Card";
-import { Layout } from "../components/Layout";
 import { Content } from "../types/content";
 import Image from "next/image";
 import Program from "../../public/Program.jpg";
+import Head from "next/head";
+import Link from "next/link";
+import { string } from "prop-types";
 
 const mainFeaturedPost = {
   title: "ブログのタイトル",
@@ -18,45 +19,59 @@ const mainFeaturedPost = {
 // @ts-ignore
 const Blog = ({ blog }) => {
   return (
-    <Layout>
-      <>
-        <ImageStyle>
-          <div className="filter" />
-          <div className="content">
-            <h2>Technical Blog</h2>
-            <p>個人開発や業務で得た知見をブログで発信していきます。</p>
-          </div>
-          <Image
-            alt="program logo"
-            src={Program}
-            layout="fill"
-            objectFit="cover"
-          />
-        </ImageStyle>
-        <Style>
-          <div />
-          <>
-            <div className="content">
-              <div className="cards">
-                {blog.map((blog: Content, index: number) => (
-                  <CardComponent
-                    key={index}
-                    image={blog.image.url}
-                    title={blog.title}
-                    content={blog.body}
-                    link={`/blog/${blog.id}`}
+    <>
+      <Head>
+        <title>Riku-s Blog</title>
+      </Head>
+      <ImageStyle>
+        <div className="filter" />
+        <div className="content">
+          <h2>Technical Blog</h2>
+          <p>個人開発や業務で得た知見をブログで発信していきます。</p>
+        </div>
+        <Image
+          alt="program logo"
+          src={Program}
+          layout="fill"
+          objectFit="cover"
+        />
+      </ImageStyle>
+      <Style>
+        <div className="space" />
+        <div className="cards">
+          {blog.map((blog: Content, index: number) => (
+            <Link href={`/blog/${blog.id}`} key={index}>
+              <a className="card" key={index}>
+                <Image
+                  alt="image"
+                  src={blog.image.url}
+                  layout="responsive"
+                  width={161.8}
+                  height={100}
+                />
+                <div className="description">
+                  <h3 className="title">{blog.title}</h3>
+                  <div
+                    className="body"
+                    dangerouslySetInnerHTML={{ __html: blog.body }}
                   />
-                ))}
-              </div>
-            </div>
-          </>
-          <div />
-        </Style>
-      </>
-    </Layout>
+                </div>
+              </a>
+            </Link>
+          ))}
+        </div>
+        <div className="space" />
+      </Style>
+    </>
   );
 };
-
+// <CardComponent
+//     key={index}
+//     image={blog.image.url}
+//     title={blog.title}
+//     content={blog.body}
+//     link={`/blog/${blog.id}`}
+// />
 export default Blog;
 
 const ImageStyle = styled.div`
@@ -96,26 +111,76 @@ const ImageStyle = styled.div`
 `;
 
 const Style = styled.div`
+  width: 100%;
   margin: 20px 0 0;
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr 4fr 1fr;
+  display: flex;
 
-  .cards {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  @media screen and (min-width: 480px) {
+    .space {
+      max-width: 2vw;
+      flex-grow: 2;
+    }
   }
 
-  background-color: #fafafa;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .space {
+      max-width: 5vw;
+      flex-grow: 2;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .space {
+      max-width: 15vw;
+      flex-grow: 2;
+    }
+  }
+
+  .cards {
+    flex-grow: 1;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
+    .card {
+      position: relative;
+      cursor: pointer;
+
+      .description {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.47);
+        backdrop-filter: blur(7px);
+        bottom: 0;
+        height: 25%;
+        width: 100%;
+        padding: 10px;
+
+        .title {
+          font-size: 25px;
+          color: black;
+          font-weight: bold;
+        }
+
+        .body {
+          margin: 10px 0 0;
+          font-size: 15px;
+          color: black;
+        }
+      }
+    }
+  }
+
+  background-color: #ffffff;
   color: #333;
   text-align: center;
 `;
 
 export const getStaticProps = async () => {
+  const api = process.env.API_KEY;
   const res = await fetch("https://riku-s.microcms.io/api/v1/blog", {
+    // @ts-ignore
     headers: {
-      "X-API-KEY": "9cba3744-936b-447c-b555-79bb51b00914",
+      "X-API-KEY": api,
     },
   });
   const data = await res.json();

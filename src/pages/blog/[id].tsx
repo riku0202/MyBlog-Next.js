@@ -4,10 +4,11 @@ import { Layout } from "../../components/Layout";
 import React from "react";
 import Image from "next/image";
 import { GetStaticPaths, GetStaticProps } from "next";
+import styled from "styled-components";
 
 const BlogId = ({ blog }: any) => {
   return (
-    <Layout>
+    <>
       {/*<div className="cards">*/}
       {/*  <CardComponent*/}
       {/*    image={blog.image.url}*/}
@@ -21,15 +22,20 @@ const BlogId = ({ blog }: any) => {
           alt="mainImage"
           src={blog.image.url}
           layout="responsive"
-          width="1000"
-          height={500}
-          quality={100}
+          width={161.8}
+          height={100}
         />
       </div>
-    </Layout>
+    </>
   );
 };
 export default BlogId;
+
+const Style = styled.div`
+  .description {
+    backdrop-filter: blur(7px);
+  }
+`;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await client.get<ContentList>({

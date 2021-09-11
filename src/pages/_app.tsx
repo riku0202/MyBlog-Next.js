@@ -2,12 +2,15 @@ import React from "react";
 import { AppLayoutProps } from "next/app";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { Layout } from "../components/Layout";
 
 const MyBlog = ({ Component, pageProps }: AppLayoutProps) => {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 };
@@ -24,6 +27,7 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     text-align: justify;
     box-sizing: border-box;
+    letter-spacing: 1px;
   }
 
   img {

@@ -12,6 +12,6 @@ export type Content = {
   publishedAt: string;
   revisedAt: string;
   title: string;
-  body: JSX.Element;
+  body: string;
   image: { url: string; height: number; width: number };
 };

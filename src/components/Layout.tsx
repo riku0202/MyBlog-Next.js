@@ -1,9 +1,9 @@
 import Head from "next/head";
 import React from "react";
 import styled from "styled-components";
-import Footer from "./Footer";
 import Link from "next/link";
 import { Facebook, Instagram, Twitter } from "./SVG";
+import { Clock } from "./Clock";
 
 type Props = {
   preview?: boolean;
@@ -20,6 +20,7 @@ export const Layout = ({ preview, children }: Props) => {
     <>
       <Head>
         <title>aaa</title>
+        <meta name="description" content="blog" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -78,10 +79,19 @@ export const Layout = ({ preview, children }: Props) => {
                 {Facebook()}
               </a>
             </div>
+            <div className="clock-wrapper">
+              <Clock />
+            </div>
           </div>
           {children}
+          <div className="footer">
+            <p className="copyright">
+              {"Copyright © "}
+              {new Date().getFullYear()}
+              {"."}
+            </p>
+          </div>
         </main>
-        <Footer />
       </Style>
     </>
   );
@@ -89,20 +99,18 @@ export const Layout = ({ preview, children }: Props) => {
 
 const Style = styled.div`
   position: relative;
-  padding: 0 0 60px;
   box-sizing: border-box;
   min-height: 100vh;
 
   .header {
     z-index: 5;
     backdrop-filter: blur(7px);
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
     position: fixed;
     width: 100%;
     padding: 10px 0;
     color: #ffffff;
-    text-shadow: 2px 2px 10px #777, -2px 2px 10px #777, 2px -2px 10px #777,
-      -2px -2px 10px #777;
+    text-shadow: 0 0 20px #ffffff;
 
     h1 {
       text-align: center;
@@ -133,6 +141,12 @@ const Style = styled.div`
       }
     }
 
+    .clock-wrapper {
+      position: absolute;
+      left: 20px;
+      top: 15px;
+    }
+
     @media screen and (min-width: 480px) {
       .social {
         display: none;
@@ -155,6 +169,7 @@ const Style = styled.div`
           }
 
           svg {
+            filter: drop-shadow(0 0 20px #ffffff);
             height: 30px;
             fill: #ffffff;
           }
@@ -178,11 +193,24 @@ const Style = styled.div`
           }
 
           svg {
+            filter: drop-shadow(0 0 10px #ffffff);
             height: 30px;
             fill: #ffffff;
           }
         }
       }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    margin: 30px 0 0;
+    border-top: 1px solid rgba(87, 87, 87, 0.49);
+
+    .copyright {
     }
   }
 `;
