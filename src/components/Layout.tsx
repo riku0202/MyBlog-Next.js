@@ -57,10 +57,15 @@ export const Layout = ({ preview, children }: Props) => {
       <Style>
         <main>
           <div className="header">
-            <h1 onClick={() => console.log("test")}>Riku SystemEngineer</h1>
-            <div className="category">
-              <Link href="/">Blog</Link>
-              <Link href="/portfolio">Portfolio</Link>
+            <div className="clock-wrapper">
+              <Clock />
+            </div>
+            <div className="title">
+              <h1 onClick={() => console.log("test")}>Riku SystemEngineer</h1>
+              <div className="category">
+                <Link href="/">Blog</Link>
+                <Link href="/portfolio">Portfolio</Link>
+              </div>
             </div>
             <div className="social">
               <a
@@ -78,9 +83,6 @@ export const Layout = ({ preview, children }: Props) => {
               >
                 {Facebook()}
               </a>
-            </div>
-            <div className="clock-wrapper">
-              <Clock />
             </div>
           </div>
           {children}
@@ -103,61 +105,77 @@ const Style = styled.div`
   min-height: 100vh;
 
   .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     z-index: 5;
     backdrop-filter: blur(7px);
     background-color: rgba(0, 0, 0, 0.4);
     position: fixed;
     width: 100%;
-    padding: 10px 0;
+    padding: 20px 20px;
     color: #ffffff;
     text-shadow: 0 0 20px #ffffff;
 
-    h1 {
-      text-align: center;
-      font-size: 30px;
-
-      :hover {
-        cursor: pointer;
-      }
-    }
-
-    .category {
-      margin: 7px 0 0;
-      display: flex;
-      justify-content: center;
-
-      a {
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 15px;
-        padding: 5px 10px;
-        border-radius: 5px;
-
-        :hover {
-          cursor: pointer;
-          background-color: rgba(0, 0, 0, 0.2);
-          opacity: 0.5;
-        }
-      }
-    }
-
     .clock-wrapper {
-      position: absolute;
       left: 20px;
       top: 15px;
     }
 
+    .title {
+      h1 {
+        text-align: center;
+        font-size: 30px;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
+
+      .category {
+        margin: 7px 0 0;
+        display: flex;
+        justify-content: center;
+
+        a {
+          color: #ffffff;
+          text-decoration: none;
+          font-size: 15px;
+          padding: 5px 10px 0;
+          border-radius: 5px;
+
+          :hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.2);
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+
     @media screen and (min-width: 480px) {
       .social {
-        display: none;
+        display: flex;
+
+        .icon {
+          display: block;
+          margin: 5px;
+
+          :hover {
+            cursor: pointer;
+          }
+
+          svg {
+            filter: drop-shadow(0 0 20px #ffffff);
+            height: 30px;
+            fill: #ffffff;
+          }
+        }
       }
     }
 
     @media screen and (min-width: 768px) and (max-width: 1024px) {
       .social {
-        position: absolute;
-        top: 15px;
-        right: 20px;
         display: flex;
 
         .icon {
@@ -179,9 +197,6 @@ const Style = styled.div`
 
     @media screen and (min-width: 1024px) {
       .social {
-        position: absolute;
-        top: 15px;
-        right: 20px;
         display: flex;
 
         .icon {
