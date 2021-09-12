@@ -52,6 +52,10 @@ export const Layout = ({ preview, children }: Props) => {
         />
         <meta name="theme-color" content="#000" />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes"
+        />
         {/*ファビコン*/}
       </Head>
       <Style>
@@ -104,100 +108,78 @@ const Style = styled.div`
   box-sizing: border-box;
   min-height: 100vh;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 5;
-    backdrop-filter: blur(7px);
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    width: 100%;
-    padding: 20px 20px;
-    color: #ffffff;
-    text-shadow: 0 0 20px #ffffff;
 
-    .clock-wrapper {
-      left: 20px;
-      top: 15px;
-    }
+  @media screen and (min-width: 480px) {
+    .header {
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+      backdrop-filter: blur(7px);
+      background-color: rgba(0, 0, 0, 0.4);
+      position: fixed;
+      width: 100%;
+      padding: 10px 0;
+      color: #ffffff;
+      text-shadow: 0 0 20px #ffffff;
 
-    .title {
-      h1 {
-        text-align: center;
-        font-size: 30px;
+      .clock-wrapper {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        padding: 7px 5px 5px;
+        backdrop-filter: blur(7px);
+        background-color: rgba(0, 0, 0, 0.4);
 
-        :hover {
-          cursor: pointer;
-        }
-      }
+        .clock {
+          .clock-date {
+            font-size: 10px;
+          }
 
-      .category {
-        margin: 7px 0 0;
-        display: flex;
-        justify-content: center;
-
-        a {
-          color: #ffffff;
-          text-decoration: none;
-          font-size: 15px;
-          padding: 5px 10px 0;
-          border-radius: 5px;
-
-          :hover {
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.2);
-            opacity: 0.5;
+          .clock-time {
+            margin: 3px 0 0;
+            font-size: 20px;
           }
         }
       }
-    }
 
-    @media screen and (min-width: 480px) {
-      .social {
-        display: flex;
-
-        .icon {
-          display: block;
-          margin: 5px;
+      .title {
+        h1 {
+          text-align: center;
+          font-size: 20px;
 
           :hover {
             cursor: pointer;
           }
+        }
 
-          svg {
-            filter: drop-shadow(0 0 20px #ffffff);
-            height: 30px;
-            fill: #ffffff;
+        .category {
+          margin: 7px 0 0;
+          display: flex;
+          justify-content: center;
+
+          a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 10px;
+            padding: 5px 10px 0;
+            border-radius: 5px;
+
+            :hover {
+              cursor: pointer;
+              background-color: rgba(0, 0, 0, 0.2);
+              opacity: 0.5;
+            }
           }
         }
       }
-    }
 
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
       .social {
-        display: flex;
-
-        .icon {
-          display: block;
-          margin: 5px;
-
-          :hover {
-            cursor: pointer;
-          }
-
-          svg {
-            filter: drop-shadow(0 0 20px #ffffff);
-            height: 30px;
-            fill: #ffffff;
-          }
-        }
-      }
-    }
-
-    @media screen and (min-width: 1024px) {
-      .social {
-        display: flex;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        display: initial;
+        backdrop-filter: blur(7px);
+        background-color: rgba(0, 0, 0, 0.4);
 
         .icon {
           display: block;
@@ -208,7 +190,95 @@ const Style = styled.div`
           }
 
           svg {
-            filter: drop-shadow(0 0 10px #ffffff);
+            filter: drop-shadow(0 0 20px #ffffff);
+            height: 25px;
+            fill: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 5;
+      backdrop-filter: blur(7px);
+      background-color: rgba(0, 0, 0, 0.4);
+      position: fixed;
+      width: 100%;
+      padding: 20px 20px;
+      color: #ffffff;
+      text-shadow: 0 0 20px #ffffff;
+
+      .clock-wrapper {
+        position: initial;
+        backdrop-filter: none;
+        background-color: rgba(0, 0, 0, 0);
+        left: 20px;
+        top: 15px;
+
+        .clock {
+          .clock-date {
+            font-size: 15px;
+          }
+
+          .clock-time {
+            margin: 5px 0 0;
+            font-size: 30px;
+          }
+        }
+      }
+
+      .title {
+        h1 {
+          text-align: center;
+          font-size: 30px;
+
+          :hover {
+            cursor: pointer;
+          }
+        }
+
+        .category {
+          margin: 7px 0 0;
+          display: flex;
+          justify-content: center;
+
+          a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 5px 10px 0;
+            border-radius: 5px;
+
+            :hover {
+              cursor: pointer;
+              background-color: rgba(0, 0, 0, 0.2);
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+
+      .social {
+        position: initial;
+        display: flex;
+        backdrop-filter: none;
+        background-color: rgba(0, 0, 0, 0);
+
+        .icon {
+          display: block;
+          margin: 5px;
+
+          :hover {
+            cursor: pointer;
+          }
+
+          svg {
+            filter: drop-shadow(0 0 20px #ffffff);
             height: 30px;
             fill: #ffffff;
           }
@@ -217,15 +287,68 @@ const Style = styled.div`
     }
   }
 
-  .footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 0;
-    margin: 30px 0 0;
-    border-top: 1px solid rgba(87, 87, 87, 0.49);
+  //@media screen and (min-width: 1024px) {
+  //  .title {
+  //    h1 {
+  //      text-align: center;
+  //      font-size: 30px;
+  //
+  //      :hover {
+  //        cursor: pointer;
+  //      }
+  //    }
+  //
+  //    .category {
+  //      margin: 7px 0 0;
+  //      display: flex;
+  //      justify-content: center;
+  //
+  //      a {
+  //        color: #ffffff;
+  //        text-decoration: none;
+  //        font-size: 15px;
+  //        padding: 5px 10px 0;
+  //        border-radius: 5px;
+  //
+  //        :hover {
+  //          cursor: pointer;
+  //          background-color: rgba(0, 0, 0, 0.2);
+  //          opacity: 0.5;
+  //        }
+  //      }
+  //    }
+  //  }
+  //
+  //  .social {
+  //    display: flex;
+  //
+  //    .icon {
+  //      display: block;
+  //      margin: 10px;
+  //
+  //      :hover {
+  //        cursor: pointer;
+  //      }
+  //
+  //      svg {
+  //        filter: drop-shadow(0 0 10px #ffffff);
+  //        height: 30px;
+  //        fill: #ffffff;
+  //      }
+  //    }
+  //  }
+  //}
+}
 
-    .copyright {
-    }
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  margin: 30px 0 0;
+  border-top: 1px solid rgba(87, 87, 87, 0.49);
+
+  .copyright {
   }
+}
 `;
