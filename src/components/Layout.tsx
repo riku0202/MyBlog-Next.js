@@ -109,10 +109,8 @@ const Style = styled.div`
   min-height: 100vh;
 
 
-  @media screen and (min-width: 480px) {
+  @media screen and (max-width: 768px) {
     .header {
-      justify-content: center;
-      align-items: center;
       z-index: 5;
       backdrop-filter: blur(7px);
       background-color: rgba(0, 0, 0, 0.4);
