@@ -115,21 +115,25 @@ const Style = styled.div`
   margin: 20px 0 0;
   display: flex;
 
-  @media screen and (min-width: 480px) {
+  background-color: #ffffff;
+  color: #333;
+  text-align: center;
+
+  @media screen and (max-width: 768px) {
     .space {
       max-width: 2vw;
       flex-grow: 2;
     }
   }
+  //
+  //@media screen and (min-width: 768px) and (max-width: 1024px) {
+  //  .space {
+  //    max-width: 5vw;
+  //    flex-grow: 2;
+  //  }
+  //}
 
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    .space {
-      max-width: 5vw;
-      flex-grow: 2;
-    }
-  }
-
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 768px) {
     .space {
       max-width: 15vw;
       flex-grow: 2;
@@ -169,10 +173,6 @@ const Style = styled.div`
       }
     }
   }
-
-  background-color: #ffffff;
-  color: #333;
-  text-align: center;
 `;
 
 export const getStaticProps = async () => {
