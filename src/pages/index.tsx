@@ -121,17 +121,10 @@ const Style = styled.div`
 
   @media screen and (max-width: 768px) {
     .space {
-      max-width: 2vw;
+      max-width: 5vw;
       flex-grow: 2;
     }
   }
-  //
-  //@media screen and (min-width: 768px) and (max-width: 1024px) {
-  //  .space {
-  //    max-width: 5vw;
-  //    flex-grow: 2;
-  //  }
-  //}
 
   @media screen and (min-width: 768px) {
     .space {
@@ -144,7 +137,14 @@ const Style = styled.div`
     flex-grow: 1;
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
 
     .card {
       position: relative;
