@@ -1,41 +1,19 @@
+import type { ReactElement, ReactNode } from "react";
 import React from "react";
-import { AppLayoutProps } from "next/app";
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
-import { Layout } from "../components/Layout";
+import type { AppProps } from "next/app";
+import type { NextPage } from "next";
 
-const MyBlog = ({ Component, pageProps }: AppLayoutProps) => {
-  return (
-    <>
-      <GlobalStyle />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </>
-  );
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+const MyBlog = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page) => page);
+  return getLayout(<Component {...pageProps} />);
 };
 
 export default MyBlog;
-
-export const GlobalStyle = createGlobalStyle`
-  ${reset}
-  html,
-  body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-color: #FFFFFF;
-    font-size: 0.625em;
-    font-weight: 400;
-    text-align: justify;
-    box-sizing: border-box;
-    letter-spacing: 1px;
-  }
-
-  img {
-    max-width: 100%;
-    display: block;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-`;

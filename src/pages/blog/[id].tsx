@@ -1,6 +1,5 @@
 import { client } from "../../lib/MicroCms";
-import { Content, ContentList } from "../../types/content";
-import { Layout } from "../../components/Layout";
+import { ContentList } from "../../types/content";
 import React from "react";
 import Image from "next/image";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -8,30 +7,27 @@ import styled from "styled-components";
 
 const BlogId = ({ blog }: any) => {
   return (
-    <>
-      {/*<div className="cards">*/}
-      {/*  <CardComponent*/}
-      {/*    image={blog.image.url}*/}
-      {/*    title={blog.title}*/}
-      {/*    content={blog.body}*/}
-      {/*    link={`/blog/${blog.id}`}*/}
-      {/*  />*/}
-      {/*</div>*/}
-      <div>
+    <Style>
+      <div className="image-wrapper">
         <Image
           alt="mainImage"
           src={blog.image.url}
           layout="responsive"
-          width={161.8}
-          height={100}
+          width={80}
+          height={50}
         />
       </div>
-    </>
+      <div className="body" dangerouslySetInnerHTML={{ __html: blog.body }} />
+    </Style>
   );
 };
 export default BlogId;
 
 const Style = styled.div`
+  .image-wrapper {
+    width: 200px;
+    height: 200px;
+  }
   .description {
     backdrop-filter: blur(7px);
   }

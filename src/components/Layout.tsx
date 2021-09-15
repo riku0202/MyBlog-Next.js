@@ -1,23 +1,15 @@
 import Head from "next/head";
 import React from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Link from "next/link";
 import { Facebook, Instagram, Twitter } from "./SVG";
 import { Clock } from "./Clock";
+import reset from "styled-reset";
 
-type Props = {
-  preview?: boolean;
-  children: JSX.Element;
-};
-
-const sections = [
-  { title: "Blog", url: "/" },
-  { title: "About me", url: "/portfolio" },
-];
-
-export const Layout = ({ preview, children }: Props) => {
+export const Layout = ({ children }: { children: JSX.Element }) => {
   return (
     <>
+      <GlobalStyle />
       <Head>
         <title>aaa</title>
         <meta name="description" content="blog" />
@@ -107,7 +99,6 @@ const Style = styled.div`
   position: relative;
   box-sizing: border-box;
   min-height: 100vh;
-
 
   @media screen and (max-width: 768px) {
     .header {
@@ -285,68 +276,37 @@ const Style = styled.div`
     }
   }
 
-  //@media screen and (min-width: 1024px) {
-  //  .title {
-  //    h1 {
-  //      text-align: center;
-  //      font-size: 30px;
-  //
-  //      :hover {
-  //        cursor: pointer;
-  //      }
-  //    }
-  //
-  //    .category {
-  //      margin: 7px 0 0;
-  //      display: flex;
-  //      justify-content: center;
-  //
-  //      a {
-  //        color: #ffffff;
-  //        text-decoration: none;
-  //        font-size: 15px;
-  //        padding: 5px 10px 0;
-  //        border-radius: 5px;
-  //
-  //        :hover {
-  //          cursor: pointer;
-  //          background-color: rgba(0, 0, 0, 0.2);
-  //          opacity: 0.5;
-  //        }
-  //      }
-  //    }
-  //  }
-  //
-  //  .social {
-  //    display: flex;
-  //
-  //    .icon {
-  //      display: block;
-  //      margin: 10px;
-  //
-  //      :hover {
-  //        cursor: pointer;
-  //      }
-  //
-  //      svg {
-  //        filter: drop-shadow(0 0 10px #ffffff);
-  //        height: 30px;
-  //        fill: #ffffff;
-  //      }
-  //    }
-  //  }
-  //}
-}
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    margin: 30px 0 0;
+    border-top: 1px solid rgba(87, 87, 87, 0.49);
 
-.footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30px 0;
-  margin: 30px 0 0;
-  border-top: 1px solid rgba(87, 87, 87, 0.49);
-
-  .copyright {
+    .copyright {
+    }
   }
-}
+`;
+export const GlobalStyle = createGlobalStyle`
+  ${reset}
+  html,
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #FFFFFF;
+    font-size: 0.625em;
+    font-weight: 400;
+    text-align: justify;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
 `;
