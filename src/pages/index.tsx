@@ -12,26 +12,30 @@ const Blog = ({ blog }: InferGetStaticPropsType<typeof getStaticProps>) => {
     <Style>
       <div className="space" />
       <div className="cards">
-        {blog.map((blog: Content, index: number) => (
-          <Link href={`/blog/${blog.id}`} key={index}>
-            <a className="card" key={index}>
-              <Image
-                alt="image"
-                src={blog.image.url}
-                layout="responsive"
-                width={161.8}
-                height={100}
-              />
-              <div className="description">
-                <h3 className="title">{blog.title}</h3>
-                <div
-                  className="body"
-                  dangerouslySetInnerHTML={{ __html: blog.body }}
-                />
-              </div>
-            </a>
-          </Link>
-        ))}
+        {blog !== null ? (
+          <>
+            {blog.map((blog: Content, index: number) => (
+              <Link href={`/blog/${blog.id}`} key={index}>
+                <a className="card" key={index}>
+                  <Image
+                    alt="image"
+                    src={blog.image.url}
+                    layout="responsive"
+                    width={161.8}
+                    height={100}
+                  />
+                  <div className="description">
+                    <h3 className="title">{blog.title}</h3>
+                    <div
+                      className="body"
+                      dangerouslySetInnerHTML={{ __html: blog.body }}
+                    />
+                  </div>
+                </a>
+              </Link>
+            ))}
+          </>
+        ) : null}
       </div>
       <div className="space" />
     </Style>
@@ -114,8 +118,15 @@ const Style = styled.div`
 
 export const getStaticProps: GetStaticProps = async () => {
   const api = process.env.API_KEY;
+  if (api === undefined) {
+    return {
+      props: {
+        blog: null,
+      },
+    };
+  }
+
   const res = await fetch("https://riku-s.microcms.io/api/v1/blog", {
-    // @ts-ignore
     headers: {
       "X-API-KEY": api,
     },
@@ -123,7 +134,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const data = await res.json();
   return {
     props: {
-      blog: data.contents,
+      blog: data.contents || null,
     },
   };
 };

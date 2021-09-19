@@ -1,11 +1,9 @@
-import { client } from "../../lib/MicroCms";
-import { ContentList } from "../../types/content";
 import React from "react";
 import Image from "next/image";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import styled from "styled-components";
 
-const BlogId = ({ blog }: any) => {
+const BlogId = ({ blog }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Style>
       <div className="image-wrapper">
@@ -28,47 +26,49 @@ const Style = styled.div`
     width: 200px;
     height: 200px;
   }
+
   .description {
     backdrop-filter: blur(7px);
   }
 `;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await client.get<ContentList>({
-    endpoint: "blog",
+  const api = process.env.API_KEY;
+
+  const res = await fetch("https://riku-s.microcms.io/api/v1/blog", {
+    headers: {
+      "X-API-KEY": api,
+    },
   });
 
+  const data = await res.json();
   const paths = data.contents.map((blog) => `/blog/${blog.id}`);
+
   return { paths, fallback: false };
 };
 
-type props = {
-  params: {
-    id: number;
-  };
-};
-
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (params !== undefined) {
-    const res = await fetch(
-      `https://riku-s.microcms.io/api/v1/blog/${params.id}`,
-      {
-        headers: {
-          "X-API-KEY": "9cba3744-936b-447c-b555-79bb51b00914",
-        },
-      }
-    );
-    const data = await res.json();
+  const api = process.env.API_KEY;
+
+  if (api === undefined || params === undefined) {
     return {
       props: {
-        blog: data,
+        blog: null,
       },
     };
   }
-
+  const res = await fetch(
+    `https://riku-s.microcms.io/api/v1/blog/${params.id}`,
+    {
+      headers: {
+        "X-API-KEY": api,
+      },
+    }
+  );
+  const data = await res.json();
   return {
     props: {
-      blog: "",
+      blog: data,
     },
   };
 };
