@@ -9,6 +9,7 @@ import BlogLayout from "../components/BlogLayout";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import Head from "next/head";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -16,6 +17,9 @@ dayjs.extend(timezone);
 const Blog = ({ blog }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Style>
+      <Head>
+        <title>Riku-s</title>
+      </Head>
       <div className="space" />
       <div className="cards">
         {blog !== null ? (
