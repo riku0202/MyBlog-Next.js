@@ -1,11 +1,15 @@
 import React from "react";
 import Image from "next/image";
+import Head from "next/head";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import styled from "styled-components";
 
 const BlogId = ({ blog }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Style>
+      <Head>
+        <title>{blog.title}</title>
+      </Head>
       <div className="image-wrapper">
         <Image
           alt="mainImage"
@@ -36,13 +40,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const api = process.env.API_KEY;
 
   const res = await fetch("https://riku-s.microcms.io/api/v1/blog", {
+    // @ts-ignore
     headers: {
       "X-API-KEY": api,
     },
   });
 
   const data = await res.json();
-  const paths = data.contents.map((blog) => `/blog/${blog.id}`);
+  const paths = data.contents.map((blog: any) => `/blog/${blog.id}`);
 
   return { paths, fallback: false };
 };

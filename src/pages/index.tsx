@@ -6,6 +6,12 @@ import Link from "next/link";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { Layout } from "../components/Layout";
 import BlogLayout from "../components/BlogLayout";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const Blog = ({ blog }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
@@ -25,11 +31,14 @@ const Blog = ({ blog }: InferGetStaticPropsType<typeof getStaticProps>) => {
                     height={100}
                   />
                   <div className="description">
+                    <p className="date">
+                      公開日:
+                      {dayjs
+                        .utc(blog.publishedAt)
+                        .tz("Asia/Tokyo")
+                        .format("YYYY-MM-DD")}
+                    </p>
                     <h3 className="title">{blog.title}</h3>
-                    <div
-                      className="body"
-                      dangerouslySetInnerHTML={{ __html: blog.body }}
-                    />
                   </div>
                 </a>
               </Link>
@@ -96,14 +105,21 @@ const Style = styled.div`
         background-color: rgba(255, 255, 255, 0.47);
         backdrop-filter: blur(7px);
         bottom: 0;
-        height: 25%;
         width: 100%;
-        padding: 10px;
+        padding: 5px 10px 10px;
+
+        .date {
+          text-align: left;
+          font-size: 12px;
+          color: black;
+        }
 
         .title {
-          font-size: 25px;
+          margin: 5px 0 0;
+          font-size: 15px;
           color: black;
           font-weight: bold;
+          line-height: 19px;
         }
 
         .body {

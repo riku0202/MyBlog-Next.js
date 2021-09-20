@@ -11,7 +11,7 @@ export const Layout = ({ children }: { children: JSX.Element }) => {
     <>
       <GlobalStyle />
       <Head>
-        <title>aaa</title>
+        <title />
         <meta name="description" content="blog" />
         <link
           rel="apple-touch-icon"
