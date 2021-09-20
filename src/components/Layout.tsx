@@ -118,6 +118,7 @@ const Style = styled.div`
         padding: 7px 5px 5px;
         backdrop-filter: blur(7px);
         background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 0 10% 10% 0;
 
         .clock {
           .clock-date {
@@ -169,6 +170,7 @@ const Style = styled.div`
         display: initial;
         backdrop-filter: blur(7px);
         background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 10% 0 0 10%;
 
         .icon {
           display: block;

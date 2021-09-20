@@ -90,42 +90,76 @@ const Style = styled.div`
 
     @media screen and (max-width: 768px) {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+      .card {
+        position: relative;
+        cursor: pointer;
+
+        .description {
+          position: absolute;
+          background-color: rgba(255, 255, 255, 0.47);
+          backdrop-filter: blur(7px);
+          bottom: 0;
+          width: 100%;
+          padding: 5px 8px 8px;
+
+          .date {
+            text-align: left;
+            font-size: 10px;
+            color: black;
+          }
+
+          .title {
+            margin: 3px 0 0;
+            font-size: 12px;
+            color: black;
+            font-weight: bold;
+            line-height: 14px;
+          }
+
+          .body {
+            margin: 10px 0 0;
+            font-size: 15px;
+            color: black;
+          }
+        }
+      }
     }
 
     @media screen and (min-width: 768px) {
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    }
 
-    .card {
-      position: relative;
-      cursor: pointer;
+      .card {
+        position: relative;
+        cursor: pointer;
 
-      .description {
-        position: absolute;
-        background-color: rgba(255, 255, 255, 0.47);
-        backdrop-filter: blur(7px);
-        bottom: 0;
-        width: 100%;
-        padding: 5px 10px 10px;
+        .description {
+          position: absolute;
+          background-color: rgba(255, 255, 255, 0.47);
+          backdrop-filter: blur(7px);
+          bottom: 0;
+          width: 100%;
+          padding: 5px 10px 10px;
 
-        .date {
-          text-align: left;
-          font-size: 12px;
-          color: black;
-        }
+          .date {
+            text-align: left;
+            font-size: 12px;
+            color: black;
+          }
 
-        .title {
-          margin: 5px 0 0;
-          font-size: 15px;
-          color: black;
-          font-weight: bold;
-          line-height: 19px;
-        }
+          .title {
+            margin: 5px 0 0;
+            font-size: 15px;
+            color: black;
+            font-weight: bold;
+            line-height: 19px;
+          }
 
-        .body {
-          margin: 10px 0 0;
-          font-size: 15px;
-          color: black;
+          .body {
+            margin: 10px 0 0;
+            font-size: 15px;
+            color: black;
+          }
         }
       }
     }
