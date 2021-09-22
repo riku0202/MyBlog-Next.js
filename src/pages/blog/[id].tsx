@@ -1,38 +1,59 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import styled from "styled-components";
+import { Layout } from "../../components/Layout";
+import BlogLayout from "../../components/BlogLayout";
 
 const BlogId = ({ blog }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const innerHTML = () => {
+    return { __html: blog.body };
+  };
+
   return (
     <Style>
       <Head>
         <title>{blog.title}</title>
       </Head>
-      <div className="image-wrapper">
-        <Image
-          alt="mainImage"
-          src={blog.image.url}
-          layout="responsive"
-          width={80}
-          height={50}
-        />
+      <div className="title">{blog.title}</div>
+      {/*<div className="content">*/}
+      <Image
+        alt="mainImage"
+        src={blog.image.url}
+        layout="responsive"
+        width={80}
+        height={50}
+      />
+      <div className="body">
+        <div dangerouslySetInnerHTML={innerHTML()} />
       </div>
-      <div className="body" dangerouslySetInnerHTML={{ __html: blog.body }} />
     </Style>
   );
 };
 export default BlogId;
 
-const Style = styled.div`
-  .image-wrapper {
-    width: 200px;
-    height: 200px;
-  }
+BlogId.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>
+      <BlogLayout>{page}</BlogLayout>
+    </Layout>
+  );
+};
 
-  .description {
-    backdrop-filter: blur(7px);
+const Style = styled.div`
+  .body {
+    width: 100%;
+
+    h1 {
+      font-size: 2rem;
+      line-height: 3rem;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 2rem;
+    }
   }
 `;
 

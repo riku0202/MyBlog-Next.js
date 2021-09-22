@@ -24,12 +24,40 @@ const BlogLayout = ({ children }: { children: JSX.Element }) => {
           objectFit="cover"
         />
       </Style>
-      {children}
+      <ChildrenStyle>
+        <div className="space" />
+        <div className="children">{children}</div>
+        <div className="space" />
+      </ChildrenStyle>
     </>
   );
 };
 
 export default BlogLayout;
+
+const ChildrenStyle = styled.div`
+  width: 100%;
+  margin: 20px 0 0;
+  display: flex;
+  text-align: center;
+  .children {
+    flex-grow: 1;
+  }
+
+  @media screen and (max-width: 768px) {
+    .space {
+      max-width: 5vw;
+      flex-grow: 2;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .space {
+      max-width: 15vw;
+      flex-grow: 2;
+    }
+  }
+`;
 
 const Style = styled.div`
   @media screen and (max-width: 768px) {
@@ -103,5 +131,4 @@ const Style = styled.div`
       }
     }
   }
-\`  ;
 `;

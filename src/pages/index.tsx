@@ -66,29 +66,8 @@ Blog.getLayout = function getLayout(page: ReactElement) {
 
 const Style = styled.div`
   width: 100%;
-  margin: 20px 0 0;
-  display: flex;
-
-  background-color: #ffffff;
-  color: #333;
-  text-align: center;
-
-  @media screen and (max-width: 768px) {
-    .space {
-      max-width: 5vw;
-      flex-grow: 2;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    .space {
-      max-width: 15vw;
-      flex-grow: 2;
-    }
-  }
 
   .cards {
-    flex-grow: 1;
     display: grid;
     gap: 2rem;
 
