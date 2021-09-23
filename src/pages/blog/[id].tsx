@@ -112,9 +112,62 @@ const Style = styled.div`
   }
 
   @media screen and (max-width: 768px) {
+    .title {
+      margin: 20px 0 30px;
+      max-width: 300px;
+      font-size: 18px;
+      line-height: 23px;
+      font-weight: bold;
+    }
+
     .inner-html {
-      padding: 10px;
+      text-align: left;
       width: 300px;
+    }
+
+    h2 {
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    ul,
+    ol {
+      li {
+        list-style: disc;
+        padding: 5px 0;
+        font-size: 12px;
+        line-height: 20px;
+      }
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    pre {
+      padding: 10px 0 10px 10px;
+      border: 1px solid #7a7a7a;
+      background-color: #f6f6f6;
+      color: #000000;
+      font-size: 13px;
+      line-height: 18px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+
+      -webkit-box-shadow: 3px 3px 5px 0 #aaa,
+        1px 1px 5px 0 rgba(0, 0, 0, 0.3) inset;
+      -moz-box-shadow: 3px 3px 5px 0 #aaa,
+        1px 1px 5px 0 rgba(0, 0, 0, 0.3) inset;
+      box-shadow: 3px 3px 5px 0 #aaa, 1px 1px 5px 0 rgba(0, 0, 0, 0.3) inset;
+
+      overflow: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+
+      code {
+      }
     }
   }
 
