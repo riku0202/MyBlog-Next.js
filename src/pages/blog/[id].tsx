@@ -16,18 +16,17 @@ const BlogId = ({ blog }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <Head>
         <title>{blog.title}</title>
       </Head>
-      <div className="title">{blog.title}</div>
-      {/*<div className="content">*/}
-      <Image
-        alt="mainImage"
-        src={blog.image.url}
-        layout="responsive"
-        width={80}
-        height={50}
-      />
-      <div className="body">
-        <div dangerouslySetInnerHTML={innerHTML()} />
+      <div className="image-wrapper">
+        <Image
+          alt="image"
+          src={blog.image.url}
+          layout="responsive"
+          width={161.8}
+          height={100}
+        />
       </div>
+      <h1 className="title">{blog.title}</h1>
+      <div className="inner-html" dangerouslySetInnerHTML={innerHTML()} />
     </Style>
   );
 };
@@ -42,19 +41,92 @@ BlogId.getLayout = function getLayout(page: ReactElement) {
 };
 
 const Style = styled.div`
-  .body {
-    width: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    h1 {
-      font-size: 2rem;
-      line-height: 3rem;
+  .image-wrapper {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    .title {
+      margin: 20px 0 30px;
+      max-width: 700px;
+      font-size: 30px;
+      line-height: 40px;
+      font-weight: bold;
     }
 
-    p {
-      font-size: 1rem;
-      line-height: 2rem;
+    .inner-html {
+      width: 700px;
+      text-align: left;
+
+      h2 {
+        font-size: 25px;
+        line-height: 35px;
+      }
+
+      ul,
+      ol {
+        li {
+          list-style: disc;
+          padding: 5px 0;
+          font-size: 12px;
+          line-height: 20px;
+        }
+      }
+
+      p {
+        font-size: 15px;
+        line-height: 25px;
+      }
+
+      pre {
+        padding: 10px 0 10px 10px;
+        border: 1px solid #7a7a7a;
+        background-color: #f6f6f6;
+        color: #000000;
+        font-size: 13px;
+        line-height: 18px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+
+        -webkit-box-shadow: 3px 3px 5px 0 #aaa,
+          1px 1px 5px 0 rgba(0, 0, 0, 0.3) inset;
+        -moz-box-shadow: 3px 3px 5px 0 #aaa,
+          1px 1px 5px 0 rgba(0, 0, 0, 0.3) inset;
+        box-shadow: 3px 3px 5px 0 #aaa, 1px 1px 5px 0 rgba(0, 0, 0, 0.3) inset;
+
+        overflow: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+
+        code {
+        }
+      }
     }
   }
+
+  @media screen and (max-width: 768px) {
+    .inner-html {
+      padding: 10px;
+      width: 300px;
+    }
+  }
+
+  //h1 {
+  //  font-size: 2rem;
+  //  line-height: 3rem;
+  //}
+  //
+  //p {
+  //  font-size: 1rem;
+  //  line-height: 2rem;
+  //}
 `;
 
 export const getStaticPaths: GetStaticPaths = async () => {
